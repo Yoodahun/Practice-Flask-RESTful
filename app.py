@@ -4,12 +4,11 @@ from flask_jwt import JWT, jwt_required
 
 from security import authenticate, identify
 
-
 app = Flask(__name__)
 app.secret_key = 'jose'
 api = Api(app)
 
-jwt = JWT(app, authenticate, identify) #/auth
+jwt = JWT(app, authenticate, identify)  # /auth
 
 items = []
 
@@ -30,11 +29,11 @@ class Item(Resource):
 
         return item, 201  # create success
 
-    def put(self, name):
-        pass
-
     def delete(self, name):
-        pass
+        global items
+        items = list(filter(lambda x: x['name'] != name, items))
+
+        return {'message': 'Item deleted'}
 
 
 class ItemList(Resource):
