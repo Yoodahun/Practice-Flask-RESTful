@@ -1,17 +1,5 @@
-from flask import Flask, request
-from flask_restful import Resource, Api, reqparse
-from flask_jwt import JWT, jwt_required
-
-from security import authenticate, identify
-
-app = Flask(__name__)
-app.secret_key = 'jose'
-api = Api(app)
-
-jwt = JWT(app, authenticate, identify)  # /auth
-
-items = []
-
+from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 
 class Item(Resource):
     parser = reqparse.RequestParser()
@@ -60,9 +48,3 @@ class Item(Resource):
 class ItemList(Resource):
     def get(self):
         return {'items': items}
-
-
-api.add_resource(Item, '/item/<string:name>')
-api.add_resource(ItemList, '/items')
-
-app.run(port=5000, debug=True)
