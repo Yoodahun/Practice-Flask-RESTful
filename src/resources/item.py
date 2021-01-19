@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
-from ..models.item import ItemModel
+from models.item import ItemModel
 import sqlite3
 
 
@@ -34,7 +34,7 @@ class Item(Resource):
         except:
             return {"message", "An error occurred inserting the item"}
 
-        return item, 201  # create success
+        return item.json(), 201  # create success
 
 
     def delete(self, name):

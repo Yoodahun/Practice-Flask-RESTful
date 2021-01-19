@@ -39,7 +39,7 @@ class ItemModel:
         cursor = connection.cursor()
 
         query = "UPDATE items SET price=? WHERE name=?"
-        cursor.execute(query, (self.name, self.price))
+        cursor.execute(query, (self.price, self.name))
 
         connection.commit()
         connection.close()
