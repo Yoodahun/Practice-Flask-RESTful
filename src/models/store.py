@@ -11,7 +11,7 @@ class StoreModel(db.Model):
     items = db.relationship('ItemModel', lazy='dynamic')
 
 
-    def __init__(self, name, price):
+    def __init__(self, name):
         self.name = name
 
 
