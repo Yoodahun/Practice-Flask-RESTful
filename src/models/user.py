@@ -1,5 +1,5 @@
 
-from db import db
+from src.db import db
 
 
 class User(db.Model):

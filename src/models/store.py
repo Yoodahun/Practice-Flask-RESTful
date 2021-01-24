@@ -1,4 +1,4 @@
-from db import db
+from src.db import db
 
 
 class StoreModel(db.Model):
@@ -21,6 +21,10 @@ class StoreModel(db.Model):
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
         # SELECT * FROM items WHERE name=name
+
+    @classmethod
+    def find_by_id(cls, store_id):
+        return cls.query.filter_by(id=store_id).first()
 
     def save_to_db(self):
        db.session.add(self)

@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
-from models.item import ItemModel
+from src.models.item import ItemModel
+from src.models.store import StoreModel
 
 
 
@@ -26,11 +27,13 @@ class Item(Resource):
 
 
     def post(self, name):
-
         if ItemModel.find_by_name(name):
             return {'message': "An item with '{}' already exists".format(name)}, 400
 
         jsonPayload = Item.parser.parse_args()
+
+        if StoreModel.find_by_id(jsonPayload['store_id']) is None:
+            return {'message':'There is no Store. You should be add store first.'}, 400
 
         item = ItemModel(name, **jsonPayload)
 
