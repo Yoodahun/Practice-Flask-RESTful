@@ -7,7 +7,7 @@ class ItemModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     price = db.Column(db.Float(precision=2)) #counting point number
-    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete="CASCADE"))
     store = db.relationship('StoreModel')
 
 
@@ -31,4 +31,11 @@ class ItemModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def delete_all_data_from_db(cls):
+        cls.query.delete()
+        db.session.commit()
+
+
 
