@@ -13,6 +13,7 @@ from src.db import db
 app = Flask(__name__) #MUST
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db') # data.db is in root folder
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off modification tracker
+app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
 api = Api(app) # MUST
 
