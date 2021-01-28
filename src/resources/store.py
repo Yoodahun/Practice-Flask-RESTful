@@ -8,32 +8,29 @@ class Store(Resource):
         if store:
             return store.json()
 
-        return {'message':'Store not found'}, 404
-
+        return {'message': 'Store not found'}, 404
 
     def post(self, name):
         if StoreModel.find_by_name(name):
-            return {'message':"A Store with name'{}' already exists.".format(name)}, 400
+            return {'message': "A Store with name'{}' already exists.".format(name)}, 400
 
         store = StoreModel(name)
         try:
             store.save_to_db()
         except:
-            return {'message':'An error occurred while creating the store'}, 500
+            return {'message': 'An error occurred while creating the store'}, 500
 
         return store.json(), 201
-
 
     def delete(self, name):
         store = StoreModel.find_by_name(name)
         if store is None:
-            return {'message':"Store '{}' is not exists.".format(name)}
+            return {'message': "Store '{}' is not exists.".format(name)}
 
         store.delete_from_db()
-        return {'message':'Store deleted'}
+        return {'message': 'Store deleted'}
 
 
 class StoreList(Resource):
     def get(self):
-        return {'stores': [store.json() for store in StoreModel.query.all()]}
-
+        return {'stores': [store.json() for store in StoreModel.find_all()]}

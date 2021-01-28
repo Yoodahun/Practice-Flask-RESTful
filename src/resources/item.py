@@ -25,7 +25,6 @@ class Item(Resource):
             return item.json()
         return {'message': 'Item not found'}, 404
 
-
     def post(self, name):
         if ItemModel.find_by_name(name):
             return {'message': "An item with '{}' already exists".format(name)}, 400
@@ -43,7 +42,6 @@ class Item(Resource):
             return {"message", "An error occurred inserting the item"}
 
         return item.json(), 201  # create success
-
 
     def delete(self, name):
         item = ItemModel.find_by_name(name)
@@ -64,9 +62,6 @@ class Item(Resource):
         item.save_to_db()
 
         return item.json()
-
-
-
 
 class ItemList(Resource):
     def get(self):
