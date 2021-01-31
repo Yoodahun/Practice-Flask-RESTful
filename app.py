@@ -14,11 +14,23 @@ app = Flask(__name__) #MUST
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db') # data.db is in root folder
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turns off modification tracker
 app.config['PROPAGATE_EXCEPTIONS'] = True
-app.secret_key = 'jose'
+app.secret_key = 'jose' # app.config['JWT_SECRET_KEY']
 api = Api(app) # MUST
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 # jwt = JWT(app, authenticate, identify)  # /auth
 jwt = JWTManager(app) # not creating end-point /auth
+
+@jwt.user_claims_loader
+def add_claims_to_jwt(identity):
+    if identity == 1: # Instead of hard-coding, should read from a config file or DB
+        return {'is_admin': True}
+    return {'is_admin':False}
+
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
