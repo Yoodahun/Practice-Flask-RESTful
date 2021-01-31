@@ -1,17 +1,20 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from src.resources.user import UserRegister, User, UserLogin, TokenRefresh
 from src.resources.item import Item, ItemList
 from src.resources.store import Store, StoreList
 from src.db import db
+from src.blacklist import BLACKLIST
 
 app = Flask(__name__)  # MUST
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')  # data.db is in root folder
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # turns off modification tracker
 app.config['PROPAGATE_EXCEPTIONS'] = True
+app.config['JWT_BLACKLIST_ENABLED'] = True
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.secret_key = 'jose'  # app.config['JWT_SECRET_KEY']
 api = Api(app)  # MUST
 
@@ -31,10 +34,14 @@ def add_claims_to_jwt(identity):  # connect to ItemList get method
         return {'is_admin': True}
     return {'is_admin': False}
 
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    return decrypted_token['identity'] in BLACKLIST
+# if true, revoke token method execute.
 
 @jwt.expired_token_loader
 def expired_token_callback():
-    return Flask.jsonify({
+    return jsonify({
         'description': 'The token has expired.',
         'error': 'token_expired'
     }), 401
@@ -42,7 +49,7 @@ def expired_token_callback():
 
 @jwt.invalid_token_loader
 def invalid_token_callback(error):
-    return Flask.jsonify({
+    return jsonify({
         'description': 'Signature verification failed.',
         'error': 'invalid_token'
     }), 401
@@ -50,23 +57,23 @@ def invalid_token_callback(error):
 
 @jwt.unauthorized_loader
 def missing_token_callback(error):
-    return Flask.jsonify({
+    return jsonify({
         'description': 'Request does not contain an access token.',
         'error': 'authorization_required'
     }), 401
 
 
 @jwt.needs_fresh_token_loader
-def token_not_fresh_callback(error):
-    return Flask.jsonify({
+def token_not_fresh_callback():
+    return jsonify({
         'description': 'The token is not fresh',
         'error': 'fresh_token_required'
     }), 401
 
 
 @jwt.revoked_token_loader
-def revoked_token_callback(error):
-    return Flask.jsonify({
+def revoked_token_callback():
+    return jsonify({
         'description': 'The token has been revoked',
         'error': 'token_revoked'
     }), 401
