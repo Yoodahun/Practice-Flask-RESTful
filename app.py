@@ -19,11 +19,6 @@ app.secret_key = 'jose'  # app.config['JWT_SECRET_KEY']
 api = Api(app)  # MUST
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
 # jwt = JWT(app, authenticate, identify)  # /auth
 jwt = JWTManager(app)  # not creating end-point /auth
 
