@@ -1,1 +1,1 @@
-BLACKLIST = {2, 3} #set
+BLACKLIST = set() #set
