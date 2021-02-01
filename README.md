@@ -128,6 +128,8 @@ user데이터를 삭제합니다.
 
 
 
+
+
 ## Store
 
 상점 리스트와 각각의 상점들에 대한 정보를 제공합니다.
@@ -182,6 +184,8 @@ store를 삭제하였을 시, 해당 store_id를 가지고 있는 item들도 같
 | 400         | message | str  | Store {store_name} is not exists. | store_name의 아이템이 존재하지 않아 삭제에 실패할 때. |
 
 ### 
+
+
 
 ## Item
 
