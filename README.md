@@ -6,7 +6,7 @@ https://www.udemy.com/course/rest-api-flask-and-python/
 
 ----
 
-**URI** : https://practice-flask-restful-dh.herokuapp.com/
+**URI** : https://practice-flask-restful-dh.herokuapp.com
 
 모든 request의 `Content-Type` 은 `application/json` 입니다.
 
