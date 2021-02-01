@@ -8,7 +8,7 @@ class Item(Resource):
     parser.add_argument('price',
                         type=float,
                         required=True,
-                        help="This field cannot be lef blank."
+                        help="This field cannot be let blank."
                         )
     parser.add_argument('store_id',
                         type=int,
@@ -38,7 +38,7 @@ class Item(Resource):
         try:
             item.save_to_db() # attributing object self
         except:
-            return {"message", "An error occurred inserting the item"}
+            return {"message", "An error occurred inserting the item"}, 400
 
         return item.json(), 201  # create success
 
