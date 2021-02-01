@@ -11,7 +11,8 @@ https://www.udemy.com/course/rest-api-flask-and-python/
 모든 request의 `Content-Type` 은 `application/json` 입니다.
 
 ----
-
+  
+  
 ## User
 
 ### POST `/register`
@@ -129,7 +130,8 @@ user데이터를 삭제합니다.
 | 404         | message | str  | User not found.            | 해당 아이디값을 가진 유저가 존재하지 않을 때. |
 
 
-
+  
+  
 ## Store
 
 상점 리스트와 각각의 상점들에 대한 정보를 제공합니다.
@@ -183,7 +185,8 @@ store를 삭제하였을 시, 해당 store_id를 가지고 있는 item들도 같
 | 200         | message | str  | Store deleted.                    | 삭제에 성공하였을 때.                                 |
 | 400         | message | str  | Store {store_name} is not exists. | store_name의 아이템이 존재하지 않아 삭제에 실패할 때. |
 
-
+  
+  
 ## Item
 
 각각의 item이나 item 전체에 대한 정보를 제공합니다.
