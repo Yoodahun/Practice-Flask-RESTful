@@ -281,7 +281,7 @@ if JWT token has not sent
 
 | STATUS_CODE | KEY      | TYPE    | VALUE | DESCRIPTION |
 | ----------- | -------- | ------- | ----- | ----------- |
-| 201         | id       | Integer |       | item id     |
+| 200         | id       | Integer |       | item id     |
 |             | name     | str     |       | item name   |
 |             | price    | Float   |       | item price  |
 |             | store_id | Integer |       | store id    |
@@ -293,8 +293,6 @@ if JWT token has not sent
 `/item/{item_name}` 은 login이 되어있는 상태여야합니다.
 
 `--header 'Authorization: Bearer {access_token}'`
-
-user_id가 1번이어야 합니다.
 
 **Response Body**
 
