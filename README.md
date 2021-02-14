@@ -32,6 +32,7 @@ User 등록을 진행합니다.
 | STATUS_CODE | KEY      | TYPE | VALUE                                     | DESCRIPTION   |
 | ----------- | -------- | ---- | ----------------------------------------- | ------------- |
 | 201         | message  | str  | User created successfully                 |               |
+|             | id       | integer| user_id                                 |                | 
 | 400         | message  | str  | A User with that useranme already exists. | username 중복 |
 | 400         | message  | key  | username / password                       |               |
 |             | username | str  | This field cannot be let blank.           | username 공란 |
