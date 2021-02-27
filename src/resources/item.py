@@ -58,13 +58,14 @@ class Item(Resource):
 
     def put(self, name):
         data = Item.parser.parse_args()
-
         item = ItemModel.find_by_name(name)
-
         if item is None:
             item = ItemModel(name, **data)
+        elif StoreModel.find_by_id(data['store_id']) is None:
+            return {'message':'There is no Store. You should be add store first.'}, 400
         else:
             item.price = data['price']
+            item.store_id = data['store_id']
 
         item.save_to_db()
 
