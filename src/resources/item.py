@@ -60,7 +60,7 @@ class Item(Resource):
         data = Item.parser.parse_args()
         item = ItemModel.find_by_name(name)
         if item is None:
-            item = ItemModel(name, **data)
+            return {'message': 'Item not found'}, 404
         elif StoreModel.find_by_id(data['store_id']) is None:
             return {'message':'There is no Store. You should be add store first.'}, 400
         else:
