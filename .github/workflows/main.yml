@@ -34,5 +34,5 @@ jobs:
       - uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "application-name"
+          heroku_app_name: "practice-flask-restful-dh"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
