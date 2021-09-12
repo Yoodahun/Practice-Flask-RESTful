@@ -36,3 +36,11 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "practice-flask-restful-dh"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+
+      # Trigger Test repository   
+      - name: Send Trigger
+        run: |
+          curl -X POST https://api.github.com/repos/Yoodahun/APITest-using-Java-RestAssured-for-FlaskRESTful/dispatches \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
