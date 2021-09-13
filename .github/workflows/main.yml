@@ -43,4 +43,4 @@ jobs:
           curl -X POST https://api.github.com/repos/yoodahun/APITest-using-Java-RestAssured-for-FlaskRESTful/dispatches \
           -H 'Accept: application/vnd.github.v3+json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
-          -d '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+          -d '{"event_type": "TRIGGER_API_TEST", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
